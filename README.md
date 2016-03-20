@@ -31,7 +31,13 @@ npm install -g eslint
 **Note:**
 ESLint will use the first `.eslintrc` file found traversing from the active file in Sublime Text up to your project's root.
 
-## 2. Sublime Text Package Control
+## 2. Sublime Text Add Repository
+
+- `command`-`shift`-`p` *or* `control`-`shift`-`p` in Linux/Windows
+- type `add` select `Package Control: Add Repository`
+- enter URL `https://github.com/polygonplanet/ESLint`
+
+## 3. Sublime Text Package Control
 
 - `command`-`shift`-`p` *or* `control`-`shift`-`p` in Linux/Windows
 - type `install p`, select `Package Control: Install Package`
@@ -40,9 +46,11 @@ ESLint will use the first `.eslintrc` file found traversing from the active file
 **Note:**
 Without Sublime Package Control, you could manually clone to Packages directory as 'ESLint', exactly.
 
-## 3. ESLint an active JavaScript file
+## Run ESLint
 
-- `control`-`j` *or* `alt`-`j` in Linux/Windows *or* Tools/Contextual menus *or* the Command Palette
+ESLint an active JavaScript file
+
+- `control`-`e` *or* `alt`-`e` in Linux/Windows *or* Tools/Contextual menus *or* the Command Palette
 - `F4` jump to next error row/column
 - `shift`-`F4` jump to previous error row-column
 
