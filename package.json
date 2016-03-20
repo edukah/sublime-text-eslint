@@ -1,0 +1,12 @@
+{
+  "packages": [
+    {
+      "name": "ESLint",
+      "description": "ESLint any JavaScript file in Sublime Text 2",
+      "homepage": "https://github.com/polygonplanet/sublime-text-eslint",
+      "platforms": {
+        "*": []
+      }
+    }
+  ]
+}
