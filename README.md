@@ -1,39 +1,55 @@
-#JSHint for Sublime Text
+# ESLint for Sublime Text
 
-The best JavaScript syntax checker: [JSHint](http://www.jshint.com/) for the best text editor: [Sublime Text](http://www.sublimetext.com/2)
+JavaScript/ECMAScript syntax checker: [ESLint](http://eslint.org/) for [Sublime Text 2](http://www.sublimetext.com/2)
 
-![ScreenShot](https://raw.github.com/uipoet/sublime-jshint/preview/jshint.png)
+*This package is forked from [Sublime JSHint](https://github.com/uipoet/sublime-jshint).*
 
-**Prerequisites:** [jshint](https://github.com/jshint/jshint) and [Sublime Package Control](http://wbond.net/sublime_packages/package_control/installation)
+## Prerequisites
 
-**Mac OS X:** Installing node with homebrew or macports is assumed. The path to jshint is hardcoded in this plugin as `/usr/local/share/npm/bin:/usr/local/bin:/opt/local/bin`. There is no reliable way to get the path from your environment.
+[eslint](https://github.com/eslint/eslint) and [Sublime Package Control](http://wbond.net/sublime_packages/package_control/installation)
 
-**Linux:** Make sure jshint is in your environment path.
+### Mac OSX
 
-**Windows:** Installing node with the Windows Installer from nodejs.org is assumed.
+Installing node with homebrew or macports is assumed.
+The path to eslint is hardcoded in this plugin as `/usr/local/share/npm/bin:/usr/local/bin:/opt/local/bin`.
+There is no reliable way to get the path from your environment.
 
-##1. Terminal
+### Linux
 
-    npm install -g jshint
+Make sure eslint is in your environment path.
+
+### Windows
+
+Installing node with the Windows Installer from [Node.js](https://nodejs.org/) is assumed.
+
+## 1. Terminal
+
+```bash
+npm install -g eslint
+```
     
-**Note:** JSHint will use the first .jshintrc file found traversing from the active file in Sublime Text up to your project's root.
+**Note:**
+ESLint will use the first `.eslintrc` file found traversing from the active file in Sublime Text up to your project's root.
 
-##2. Sublime Text Package Control
+## 2. Sublime Text Add Repository
 
 - `command`-`shift`-`p` *or* `control`-`shift`-`p` in Linux/Windows
-- type `install p`, select `Package Control: Install Package`
-- type `jshint`, select `JSHint`
+- type `add` select `Package Control: Add Repository`
+- enter URL `https://github.com/polygonplanet/sublime-text-eslint`
 
-**Note:** Without Sublime Package Control, you could manually clone to Packages directory as 'JSHint', exactly.
-
-##3. JSHint an active JavaScript file
+## 3. ESLint an active JavaScript file
 
 - `control`-`j` *or* `alt`-`j` in Linux/Windows *or* Tools/Contextual menus *or* the Command Palette
 - `F4` jump to next error row/column
 - `shift`-`F4` jump to previous error row-column
 
-**Note:** The `control`-`j`/`alt`-`j` shortcut changes the Build System on the current file to JSHint, then Builds to run JSHint on the file and output any errors for jumping to within the file. You could alternatively set the Build System to Automatic and `command`-`b`/`control`-`b`/`F7`, but only on files that end with .js.
+**Note:**
+The `control`-`e`/`alt`-`e` shortcut changes the Build System on the current file to ESLint,
+then Builds to run ESLint on the file and output any errors for jumping to within the file.
+You could alternatively set the Build System to Automatic and `command`-`b`/`control`-`b`/`F7`,
+but only on files that end with .js.
 
-##JSHint on save
+## ESLint on save
 
 Install [SublimeOnSaveBuild](https://github.com/alexnj/SublimeOnSaveBuild)
+

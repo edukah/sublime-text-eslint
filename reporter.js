@@ -1,12 +1,13 @@
-exports.reporter = function (errors, results) {
-  var
-    buffer = '',
-    title = 'error';
+module.exports = function(results) {
+  'use strict';
+
+  var lines = [];
+  var title = 'error';
 
   function numberWang(wangaNumb) {
-    var
-      thatsNumberWang = 5 - wangaNumb,
-      stayNumberWang = '', i;
+    var thatsNumberWang = 5 - wangaNumb;
+    var stayNumberWang = '';
+    var i;
 
     for (i = 0; i < thatsNumberWang; i += 1) {
       stayNumberWang += ' ';
@@ -15,25 +16,36 @@ exports.reporter = function (errors, results) {
     return stayNumberWang;
   }
 
-  buffer += '[JSHint: ' + results[0].file + ']\n\n';
+  lines.push('[ESLint: ' + results[0].filePath + ']');
+  lines.push('');
 
-  if (errors.length) {
-    if (errors.length > 1) {
+  var errorCount = results[0].errorCount;
+  var messages = results[0].messages;
+
+  if (errorCount) {
+    if (errorCount > 1) {
       title += 's';
     }
 
-    errors.forEach(function (result) {
-      var
-        error = result.error;
+    messages.forEach(function(error) {
+      var ruleId = error.ruleId ? ' (' + error.ruleId + ')' : '';
 
-      buffer += numberWang((error.line + error.character.toString()).length) + ' ' + error.line + ',' + error.character + ':' + ' ' + error.reason + '\n';
+      lines.push([
+        numberWang((error.line + error.column.toString()).length),
+        error.line + ',' + error.column + ':',
+        error.message + ruleId
+      ].join(' '));
     });
 
-    buffer += '\n✗ ' + errors.length + ' ' + title + ', double-click above, [F4] for next, [shift-F4] for previous.\n';
-
+    lines.push('');
+    lines.push(
+      '✗ ' + errorCount + ' ' + title +
+      ', double-click above, [F4] for next, [shift-F4] for previous.'
+    );
   } else {
-    buffer += '✓ 0 errors, [esc] to hide.\n';
+    lines.push('✓ 0 errors, [esc] to hide.');
   }
 
-  console.log(buffer);
+  lines.push('');
+  console.log(lines.join('\n'));
 };

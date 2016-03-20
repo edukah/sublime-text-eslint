@@ -1,3 +1,6 @@
-[{
-  "keys": ["ctrl+j"], "command": "jshint"
-}]
+[
+  {
+    "keys": ["ctrl+e"],
+    "command": "eslint"
+  }
+]

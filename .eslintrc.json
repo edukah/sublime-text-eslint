@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "semi": "warn", 
+    "no-console": "warn"
+  }, 
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true, 
+      "globalReturn": true, 
+      "jsx": true, 
+      "impliedStrict": true
+    }, 
+    "ecmaVersion": 6, 
+    "sourceType": "module"
+  }, 
+  "extends": "eslint:recommended", 
+  "env": {
+    "node": true, 
+    "es6": true, 
+    "shared-node-browser": true, 
+    "worker": true, 
+    "browser": true
+  }
+}
