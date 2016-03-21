@@ -1,28 +1,4 @@
 {
   "selector": "source.js",
-
-  "cmd": [
-    "eslint",
-    "$file",
-    "--max-warnings", "7",
-    "--format", "$packages/ESLint/reporter.js",
-    "--config", "$packages/ESLint/.eslintrc.json"
-  ],
-
-  "file_regex": "ESLint: (.+)\\]",
-  "line_regex": "(\\d+),(\\d+): (.*)$",
-
-  "osx": {
-    "path": "/usr/local/share/npm/bin:/usr/local/bin:/opt/local/bin"
-  },
-
-  "windows": {
-    "cmd": [
-      "eslint.cmd",
-      "$file",
-      "--max-warnings", "7",
-      "--format", "$packages\\ESLint\\reporter.js",
-      "--config", "$packages\\ESLint\\.eslintrc.json"
-    ]
-  }
+  "target": "eslint"
 }
