@@ -1,15 +1,32 @@
-module.exports = function(results) {
-  'use strict';
+'use strict';
 
+var MAX_WARNINGS = 7;
+
+var path = require('path');
+var CLIEngine = require('eslint').CLIEngine;
+
+var args = process.argv.slice(2);
+var targetPath = args[0];
+var configPath = path.join(__dirname, '.eslintrc.json');
+
+var cli = new CLIEngine({
+  configFile: configPath
+});
+
+var report = cli.executeOnFiles([targetPath]);
+console.log(format(report.results)); // eslint-disable-line no-console
+
+
+function format(results) {
   var lines = [];
   var title = 'error';
 
   function numberWang(wangaNumb) {
-    var thatsNumberWang = 5 - wangaNumb;
+    var thatsNumberWang = 7 - wangaNumb;
     var stayNumberWang = '';
     var i;
 
-    for (i = 0; i < thatsNumberWang; i += 1) {
+    for (i = 0; i < thatsNumberWang; i++) {
       stayNumberWang += ' ';
     }
 
@@ -19,8 +36,12 @@ module.exports = function(results) {
   lines.push('[ESLint: ' + results[0].filePath + ']');
   lines.push('');
 
-  var errorCount = results[0].errorCount;
   var messages = results[0].messages;
+  var errorCount = results[0].errorCount || 0;
+  var warningCount = results[0].warningCount || 0;
+  var count = 0;
+
+  errorCount += warningCount;
 
   if (errorCount) {
     if (errorCount > 1) {
@@ -28,6 +49,10 @@ module.exports = function(results) {
     }
 
     messages.forEach(function(error) {
+      if (count > MAX_WARNINGS) {
+        return;
+      }
+
       var ruleId = error.ruleId ? ' (' + error.ruleId + ')' : '';
 
       lines.push([
@@ -35,11 +60,12 @@ module.exports = function(results) {
         error.line + ',' + error.column + ':',
         error.message + ruleId
       ].join(' '));
+      count++;
     });
 
     lines.push('');
     lines.push(
-      '✗ ' + errorCount + ' ' + title +
+      '✗ ' + count + ' ' + title +
       ', double-click above, [F4] for next, [shift-F4] for previous.'
     );
   } else {
@@ -47,5 +73,5 @@ module.exports = function(results) {
   }
 
   lines.push('');
-  console.log(lines.join('\n'));
-};
+  return lines.join('\n');
+}
