@@ -1,24 +1,24 @@
 {
-  "rules": {
-    "semi": "warn", 
-    "no-console": "warn"
-  }, 
+  "extends": "eslint:recommended",
   "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true, 
-      "globalReturn": true, 
-      "jsx": true, 
-      "impliedStrict": true
-    }, 
-    "ecmaVersion": 6, 
-    "sourceType": "module"
-  }, 
-  "extends": "eslint:recommended", 
+      "jsx": true,
+      "globalReturn": true,
+      "impliedStrict": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
   "env": {
-    "node": true, 
-    "es6": true, 
-    "shared-node-browser": true, 
-    "worker": true, 
-    "browser": true
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "shared-node-browser": true,
+    "worker": true
+  },
+  "rules": {
+    "no-console": "warn",
+    "semi": "warn"
   }
 }
