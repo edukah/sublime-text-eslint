@@ -6,15 +6,16 @@ import platform
 import sublime
 import sublime_plugin
 
-EXEC_LINT = 'eslint_exec'
+ST3 = int(sublime.version()) >= 3000
+
+EXEC_LINT = "eslint_exec"
 LINTER_PATH = os.path.join(
   sublime.packages_path(),
   os.path.dirname(os.path.realpath(__file__)),
-  'linter.js'
+  "linter.js"
 )
 
 class EslintExecCommand(sublime_plugin.WindowCommand):
-
   def run(self, files=[]):
     packages = sublime.packages_path()
 
@@ -24,9 +25,9 @@ class EslintExecCommand(sublime_plugin.WindowCommand):
     update_config(default_path, user_path, config_path)
 
     if sublime.platform() == "osx":
-      path = "/usr/local/bin:" + os.environ['PATH']
+      path = "/usr/local/bin:" + os.environ["PATH"]
     else:
-      path = os.environ['PATH']
+      path = os.environ["PATH"]
 
     args = {
       "cmd": [
@@ -38,41 +39,32 @@ class EslintExecCommand(sublime_plugin.WindowCommand):
       "file_regex": r"ESLint: (.+)\]",
       "line_regex": r"(\d+),(\d+): (.*)$"
     }
-    self.window.run_command('exec', args)
+    self.window.run_command("exec", args)
 
 class EslintCommand(sublime_plugin.WindowCommand):
-
   def run(self):
     self.window.run_command(EXEC_LINT, {
-      'files': [self.window.active_view().file_name()]
+      "files": [self.window.active_view().file_name()]
     })
 
 def update_config(default_path, user_path, out_path):
-  with open(default_path) as f:
-    data = json.load(f)
+  data = read_json(user_path)
+  if not data:
+    data = read_json(default_path)
 
-  if os.path.isfile(user_path):
-    with open(user_path) as f:
-      user_data = json.load(f)
-      dict_merge(data, user_data)
+  with open(out_path, "w") as f:
+    f.write(data)
 
-  with open(out_path, 'w') as f:
-    json.dump(data, f, indent=2)
+def read_json(path):
+  if os.path.isfile(path):
+    with open(path, "r") as f:
+      data = f.read()
+    if is_json(data):
+      return data
 
-def dict_merge(target, *args):
-  # Merge multiple dicts
-  if len(args) > 1:
-    for obj in args:
-      dict_merge(target, obj)
-    return target
-
-  # Recursively merge dicts and set non-dict values
-  obj = args[0]
-  if not isinstance(obj, dict):
-    return obj
-  for k, v in obj.iteritems():
-    if k in target and isinstance(target[k], dict):
-      dict_merge(target[k], v)
-    else:
-      target[k] = copy.deepcopy(v)
-  return target
+def is_json(data):
+  try:
+    j = json.loads(data)
+  except:
+    return False
+  return True
