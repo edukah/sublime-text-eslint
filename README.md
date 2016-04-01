@@ -61,8 +61,8 @@ Install [SublimeOnSaveBuild][SublimeOnSaveBuild]
 [ESLint][ESLint Official] allows you to specify the JavaScript language options you want to support by using `.eslintrc` file.
 
 This plugin's settings file has the same meaning as the `.eslintrc` file.
-By default ("`Preferences` / `Package Settings` / `HighlightAnything` / `Settings - Default`"), ESLint plugin supports [ECMAScript 6][ECMAScript 6] and [JSX][JSX] syntax.
-You can override that setting in "`Preferences` / `Package Settings` / `HighlightAnything` / `Settings - User`", as JSON.
+By default ("`Preferences` / `Package Settings` / `ESLint` / `Settings - Default`"), ESLint plugin supports [ECMAScript 6][ECMAScript 6] and [JSX][JSX] syntax.
+You can override that setting in "`Preferences` / `Package Settings` / `ESLint` / `Settings - User`", as JSON.
 
 
 Example:
