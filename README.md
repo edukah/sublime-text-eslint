@@ -2,10 +2,6 @@
 
 Lint ECMAScript/JavaScript syntax by [ESLint][ESLint Official] in [Sublime Text 2][Sublime Text 2] and [3][Sublime Text 3].
 
-## Features
-
-* Support for [ECMAScript 6 (ES2015)+][ECMAScript 6] and [JSX][JSX]
-
 ## Prerequisites
 
 * [Sublime Package Control][Package Control]
@@ -39,8 +35,8 @@ Install this plugin by using Sublime Text [Package Control][Package Control].
 ESLint an active JavaScript file.
 
 
-* Open the context menu (right-click), and Select **ESLint**
-  Or Open "Command Pallet" and Select **ESLint**
+* Open the context menu (right-click), and Select **ESLint**,  
+  Or Open "Command Pallet" and Select **ESLint**,  
   Or keyboard shortcut: <kbd>Alt</kbd> + <kbd>e</kbd> (<kbd>Option</kbd> + <kbd>e</kbd> on OSX)
 
 * <kbd>F4</kbd> : Jump to next error row/column
@@ -52,67 +48,43 @@ then Builds to run ESLint on the file and output any errors for jumping to withi
 You could alternatively set the Build System to Automatic and <kbd>Ctrl</kbd> + <kbd>b</kbd> (<kbd>Cmd</kbd> + <kbd>b</kbd> on OSX) or <kbd>F7</kbd>,
 but only on files that end with `.js`.
 
-## ESLint on save
-
-Install [SublimeOnSaveBuild][SublimeOnSaveBuild]
-
 ## Configuring ESLint
 
-[ESLint][ESLint Official] allows you to specify the JavaScript language options you want to support by using `.eslintrc` file.
+[ESLint][ESLint Official] allows you to specify the JavaScript language options you want to support by using `.eslintrc` file,
+it will use the first `.eslintrc` file found traversing from the active file in Sublime Text up to your project's root.
 
-This plugin's settings file has the same meaning as the `.eslintrc` file.
-By default ("`Preferences` / `Package Settings` / `ESLint` / `Settings - Default`"), ESLint plugin supports [ECMAScript 6][ECMAScript 6] and [JSX][JSX] syntax.
-You can override that setting in "`Preferences` / `Package Settings` / `ESLint` / `Settings - User`", as JSON.
+You can configure ESLint options by specify `.eslintrc` file.
+For more information, see the [ESLint docs][ESLint Official Configuration Docs].
 
+## Settings
+
+Several settings are available to customize the plugin's behavior.  
+Those settings are stored in a configuration file, as JSON.
+
+Go to "`Preferences` / `Package Settings` / `ESLint` / `Settings - User`" to add your custom settings.
+
+### node_path
+
+*Default: `""`*
+
+Where your `node` executable lives.  
+If this is not specified, then it is expected to be on Sublime's environment path (system environment path).
 
 Example:
 
 ```javascript
 {
-  "extends": "eslint:recommended",
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "env": {
-    "es6": true,
-    "browser": true
-  },
-  "rules": {
-    "no-console": "off",
-    "no-unused-vars": "off"
-  }
+  "node_path": "/usr/local/bin"
 }
 ```
 
+## ESLint on save
 
-### Example for support the [React][React] plugin.
-
-If you installed ESLint globally, you have to install [React plugin][React plugin] globally too.
-
-```bash
-npm install -g eslint-plugin-react
-```
-
-Add plugins section and specify ESLint-plugin-React as a plugin.
-
-```javascript
-{
-  ...
-  "rules": {
-    "react/jsx-uses-vars": "warn"
-  },
-  "plugins": [
-    "react"
-  ]
-}
-```
+Install [SublimeOnSaveBuild][SublimeOnSaveBuild]
 
 
 [ESLint Official]: http://eslint.org/
+[ESLint Official Configuration Docs]: http://eslint.org/docs/user-guide/configuring#configuration-file-formats
 [Sublime Text 2]: http://www.sublimetext.com/2
 [Sublime Text 3]: http://www.sublimetext.com/3
 [ECMAScript 6]: http://www.ecma-international.org/publications/standards/Ecma-262.htm

@@ -7,14 +7,12 @@ var CLIEngine = require('eslint').CLIEngine;
 
 var args = process.argv.slice(2);
 var targetPath = args[0];
-var configPath = path.join(__dirname, '.eslintrc.json');
 
-var cli = new CLIEngine({
-  configFile: configPath
-});
+var cli = new CLIEngine();
 
 var report = cli.executeOnFiles([targetPath]);
-console.log(format(report.results)); // eslint-disable-line no-console
+// eslint-disable-next-line no-console
+console.log(format(report.results));
 
 
 function format(results) {
@@ -49,10 +47,9 @@ function format(results) {
     }
 
     messages.forEach(function(error) {
-      if (count > MAX_WARNINGS) {
+      if (count >= MAX_WARNINGS) {
         return;
       }
-
       var ruleId = error.ruleId ? ' (' + error.ruleId + ')' : '';
 
       lines.push([
@@ -60,6 +57,7 @@ function format(results) {
         error.line + ',' + error.column + ':',
         error.message + ruleId
       ].join(' '));
+
       count++;
     });
 

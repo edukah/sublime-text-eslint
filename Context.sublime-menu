@@ -1,5 +1,7 @@
-[{
-  "id": "eslint",
-  "caption": "ESLint",
-  "command": "eslint"
-}]
+[
+  {
+    "id": "eslint",
+    "caption": "ESLint",
+    "command": "eslint"
+  }
+]

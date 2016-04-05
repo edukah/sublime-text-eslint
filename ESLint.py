@@ -1,70 +1,53 @@
 import os
-import json
-import copy
 import platform
-
 import sublime
 import sublime_plugin
 
-ST3 = int(sublime.version()) >= 3000
+SETTINGS_KEY = 'ESLint.sublime-settings'
+DEFAULT_NODE_PATH = ''
 
-EXEC_LINT = "eslint_exec"
-LINTER_PATH = os.path.join(
-  sublime.packages_path(),
-  os.path.dirname(os.path.realpath(__file__)),
-  "linter.js"
-)
+class Preferences:
+  def load(self, settings):
+    self.node_path = settings.get('node_path', DEFAULT_NODE_PATH)
+
+Pref = Preferences()
+
+def plugin_loaded():
+  settings = sublime.load_settings(SETTINGS_KEY)
+  Pref.load(settings)
+  settings.add_on_change('reload', lambda: Pref.load(settings))
+
 
 class EslintExecCommand(sublime_plugin.WindowCommand):
   def run(self, files=[]):
     packages = sublime.packages_path()
+    linter_path = os.path.join(packages, 'ESLint', 'linter.js')
 
-    default_path = os.path.join(packages, "ESLint", "ESLint.sublime-settings")
-    user_path = os.path.join(packages, "User", "ESLint.sublime-settings")
-    config_path = os.path.join(packages, "ESLint", ".eslintrc.json")
-    update_config(default_path, user_path, config_path)
-
-    if sublime.platform() == "osx":
-      path = "/usr/local/bin:" + os.environ["PATH"]
-    else:
-      path = os.environ["PATH"]
+    path = Pref.node_path
+    if not path:
+      if sublime.platform() == 'osx':
+        path = '/usr/local/bin:' + os.environ['PATH']
+      else:
+        path = os.environ['PATH']
 
     args = {
-      "cmd": [
-        "node",
-        LINTER_PATH,
+      'cmd': [
+        'node',
+        linter_path,
         files[0]
       ],
-      "path": path,
-      "file_regex": r"ESLint: (.+)\]",
-      "line_regex": r"(\d+),(\d+): (.*)$"
+      'path': path,
+      'file_regex': r'ESLint: (.+)\]',
+      'line_regex': r'(\d+),(\d+): (.*)$'
     }
-    self.window.run_command("exec", args)
+    self.window.run_command('exec', args)
 
 class EslintCommand(sublime_plugin.WindowCommand):
   def run(self):
-    self.window.run_command(EXEC_LINT, {
-      "files": [self.window.active_view().file_name()]
+    self.window.run_command('eslint_exec', {
+      'files': [self.window.active_view().file_name()]
     })
 
-def update_config(default_path, user_path, out_path):
-  data = read_json(user_path)
-  if not data:
-    data = read_json(default_path)
-
-  with open(out_path, "w") as f:
-    f.write(data)
-
-def read_json(path):
-  if os.path.isfile(path):
-    with open(path, "r") as f:
-      data = f.read()
-    if is_json(data):
-      return data
-
-def is_json(data):
-  try:
-    j = json.loads(data)
-  except:
-    return False
-  return True
+# ST2 backwards compatibility
+if int(sublime.version()) < 3000:
+  plugin_loaded()
