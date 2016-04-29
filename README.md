@@ -67,14 +67,22 @@ Go to "`Preferences` / `Package Settings` / `ESLint` / `Settings - User`" to add
 
 *Default: `""`*
 
-Where your `node` executable lives.  
-If this is not specified, then it is expected to be on Sublime's environment path (system environment path).
+The directory location of your `node` executable lives.
+If this is not specified, then it is expected to be on Sublime's environment path.
+
+### node_modules_path
+
+*Default: `""`*
+
+The directory location of global `node_modules` via `npm`.
+If this is not specified, then it is expected to be on system environment variable `NODE_PATH`.
 
 Example:
 
 ```javascript
 {
-  "node_path": "/usr/local/bin"
+  "node_path": "/usr/local/bin",
+  "node_modules_path": "/usr/local/lib/node_modules"
 }
 ```
 
