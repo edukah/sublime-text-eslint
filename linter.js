@@ -1,13 +1,15 @@
 'use strict';
 
-var MAX_WARNINGS = 7;
-
-var path = require('path');
-var CLIEngine = require('eslint').CLIEngine;
-
 var args = process.argv.slice(2);
 var targetPath = args[0];
+var nodeModulesPath = args[1];
+if (nodeModulesPath) {
+  module.paths.push(nodeModulesPath);
+}
 
+var MAX_WARNINGS = 7;
+
+var CLIEngine = require('eslint').CLIEngine;
 var cli = new CLIEngine();
 
 var report = cli.executeOnFiles([targetPath]);
