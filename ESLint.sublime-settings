@@ -21,5 +21,14 @@
   // On OSX, for example: "/usr/local/lib/node_modules"
   // Example for nodebrew: "$HOME/.nodebrew/current/lib/node_modules"
   // Example for Windows: "%APPDATA%/npm/node_modules"
-  "node_modules_path": ""
+  "node_modules_path": "",
+
+  // The directory location of your custom rules.
+  // This option works same as ESLint `--rulesdir` option.
+  // This option allows you to specify another directory from which to load
+  // rules files. The rules in your custom rules directory must follow the
+  // same format as bundled rules to work properly.
+  //
+  // Example: "/path/to/my-rules"
+  "rulesdir": ""
 }

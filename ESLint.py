@@ -6,11 +6,13 @@ import sublime_plugin
 SETTINGS_KEY = 'ESLint.sublime-settings'
 DEFAULT_NODE_PATH = ''
 DEFAULT_NODE_MODULES_PATH = ''
+DEFAULT_RULESDIR = ''
 
 class Preferences:
   def load(self, settings):
     self.node_path = settings.get('node_path', DEFAULT_NODE_PATH)
     self.node_modules_path = settings.get('node_modules_path', DEFAULT_NODE_MODULES_PATH)
+    self.rulesdir = settings.get('rulesdir', DEFAULT_RULESDIR)
 
 Pref = Preferences()
 
@@ -25,6 +27,7 @@ class EslintExecCommand(sublime_plugin.WindowCommand):
     packages = sublime.packages_path()
     linter_path = os.path.join(packages, 'ESLint', 'linter.js')
     node_modules_path = os.path.expandvars(os.path.expanduser(Pref.node_modules_path))
+    rulesdir = os.path.expandvars(os.path.expanduser(Pref.rulesdir))
 
     path = Pref.node_path
     if not path:
@@ -38,7 +41,8 @@ class EslintExecCommand(sublime_plugin.WindowCommand):
         'node',
         linter_path,
         files[0],
-        node_modules_path
+        node_modules_path,
+        rulesdir
       ],
       'path': path,
       'file_regex': r'ESLint: (.+)\]',

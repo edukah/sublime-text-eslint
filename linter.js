@@ -6,11 +6,16 @@ var nodeModulesPath = args[1];
 if (nodeModulesPath) {
   module.paths.push(nodeModulesPath);
 }
+var rulesdir = args[2];
 
 var MAX_WARNINGS = 7;
 
 var CLIEngine = require('eslint').CLIEngine;
-var cli = new CLIEngine();
+var options = {};
+if (rulesdir) {
+  options.rulePaths = [].concat(rulesdir);
+}
+var cli = new CLIEngine(options);
 
 var report = cli.executeOnFiles([targetPath]);
 // eslint-disable-next-line no-console

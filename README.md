@@ -77,6 +77,19 @@ If this is not specified, then it is expected to be on Sublime's environment pat
 The directory location of global `node_modules` via `npm`.
 If this is not specified, then it is expected to be on system environment variable `NODE_PATH`.
 
+### rulesdir
+
+*Default: `""`*
+
+The directory location of your custom rules.
+This option works same as ESLint `--rulesdir` command line option.
+
+Note: Currently, The multiple rules location is not supported.
+
+This option allows you to specify another directory from which to load rules files.
+The rules in your custom rules directory must follow the same format as bundled rules to work properly.
+For more information, see the [ESLint docs][ESLint Official Specifying rules and plugins Docs].
+
 Example:
 
 ```javascript
@@ -93,6 +106,7 @@ Install [SublimeOnSaveBuild][SublimeOnSaveBuild]
 
 [ESLint Official]: http://eslint.org/
 [ESLint Official Configuration Docs]: http://eslint.org/docs/user-guide/configuring#configuration-file-formats
+[ESLint Official Specifying rules and plugins Docs]: http://eslint.org/docs/user-guide/command-line-interface#specifying-rules-and-plugins
 [Sublime Text 2]: http://www.sublimetext.com/2
 [Sublime Text 3]: http://www.sublimetext.com/3
 [ECMAScript 6]: http://www.ecma-international.org/publications/standards/Ecma-262.htm
