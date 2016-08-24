@@ -23,12 +23,9 @@
   // Example for Windows: "%APPDATA%/npm/node_modules"
   "node_modules_path": "",
 
-  // The directory location of your custom rules.
-  // This option works same as ESLint `--rulesdir` option.
-  // This option allows you to specify another directory from which to load
-  // rules files. The rules in your custom rules directory must follow the
-  // same format as bundled rules to work properly.
-  //
-  // Example: "/path/to/my-rules"
-  "rulesdir": ""
+  // The location of your configuration file.
+  // This option works same as ESLint `-c` option.
+  // This option allows you to specify the location of your eslintrc file
+  // Example: "/path/to/.eslintrc.js"
+  "config_file": ""
 }

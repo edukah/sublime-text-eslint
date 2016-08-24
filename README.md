@@ -12,7 +12,7 @@ Lint ECMAScript/JavaScript syntax by [ESLint][ESLint Official] in [Sublime Text 
 
 ### Install Node.js and eslint
 
-Before using this plugin, you must ensure that `eslint` is installed on your system.  
+Before using this plugin, you must ensure that `eslint` is installed on your system.
 To install `eslint`, do the following:
 
 1. Install [Node.js][Node.js] (and [npm][npm] on Linux).
@@ -35,8 +35,8 @@ Install this plugin by using Sublime Text [Package Control][Package Control].
 ESLint an active JavaScript file.
 
 
-* Open the context menu (right-click), and Select **ESLint**,  
-  Or Open "Command Pallet" and Select **ESLint**,  
+* Open the context menu (right-click), and Select **ESLint**,
+  Or Open "Command Pallet" and Select **ESLint**,
   Or keyboard shortcut: <kbd>Alt</kbd> + <kbd>e</kbd> (<kbd>Option</kbd> + <kbd>e</kbd> on OSX)
 
 * <kbd>F4</kbd> : Jump to next error row/column
@@ -58,10 +58,19 @@ For more information, see the [ESLint docs][ESLint Official Configuration Docs].
 
 ## Settings
 
-Several settings are available to customize the plugin's behavior.  
+Several settings are available to customize the plugin's behavior.
 Those settings are stored in a configuration file, as JSON.
 
 Go to "`Preferences` / `Package Settings` / `ESLint` / `Settings - User`" to add your custom settings.
+
+### config_file
+
+*Default: `""`*
+
+This option allows you to specify an additional configuration file for ESLint.  If not specified, follows the default config file hierarchy.
+This option works same as ESLint `-c` or `--config` command line option.
+
+For more information, see the [ESLint docs][ESLint Official Specifying Basic Configuration File Docs].
 
 ### node_path
 
@@ -77,23 +86,12 @@ If this is not specified, then it is expected to be on Sublime's environment pat
 The directory location of global `node_modules` via `npm`.
 If this is not specified, then it is expected to be on system environment variable `NODE_PATH`.
 
-### rulesdir
-
-*Default: `""`*
-
-The directory location of your custom rules.
-This option works same as ESLint `--rulesdir` command line option.
-
-Note: Currently, The multiple rules location is not supported.
-
-This option allows you to specify another directory from which to load rules files.
-The rules in your custom rules directory must follow the same format as bundled rules to work properly.
-For more information, see the [ESLint docs][ESLint Official Specifying rules and plugins Docs].
 
 Example:
 
 ```javascript
 {
+  "config_file": "/path/to/.eslintrc.js"
   "node_path": "/usr/local/bin",
   "node_modules_path": "/usr/local/lib/node_modules"
 }
@@ -106,7 +104,7 @@ Install [SublimeOnSaveBuild][SublimeOnSaveBuild]
 
 [ESLint Official]: http://eslint.org/
 [ESLint Official Configuration Docs]: http://eslint.org/docs/user-guide/configuring#configuration-file-formats
-[ESLint Official Specifying rules and plugins Docs]: http://eslint.org/docs/user-guide/command-line-interface#specifying-rules-and-plugins
+[ESLint Official Specifying Basic Configuration File Docs]: http://eslint.org/docs/user-guide/command-line-interface#basic-configuration
 [Sublime Text 2]: http://www.sublimetext.com/2
 [Sublime Text 3]: http://www.sublimetext.com/3
 [ECMAScript 6]: http://www.ecma-international.org/publications/standards/Ecma-262.htm

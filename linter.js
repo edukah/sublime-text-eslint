@@ -6,14 +6,14 @@ var nodeModulesPath = args[1];
 if (nodeModulesPath) {
   module.paths.push(nodeModulesPath);
 }
-var rulesdir = args[2];
+var configFile = args[2];
 
 var MAX_WARNINGS = 7;
 
 var CLIEngine = require('eslint').CLIEngine;
 var options = {};
-if (rulesdir) {
-  options.rulePaths = [].concat(rulesdir);
+if (configFile) {
+  options.configFile = configFile;
 }
 var cli = new CLIEngine(options);
 
