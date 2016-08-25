@@ -25,7 +25,8 @@
 
   // The location of your configuration file.
   // This option works same as ESLint `-c` option.
-  // This option allows you to specify the location of your eslintrc file
+  // This option allows you to specify the location of your `.eslintrc` file
+  //
   // Example: "/path/to/.eslintrc.js"
   "config_file": ""
 }
