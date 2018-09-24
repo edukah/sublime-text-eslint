@@ -13,7 +13,7 @@ if (nodeModulesPath) {
 }
 var configFile = args[2];
 
-var eslintPath = path.join(targetDir, 'node_modules', 'eslint');
+var eslintPath = require.resolve('eslint', {paths: [targetDir]});
 var eslint;
 if (fs.existsSync(eslintPath)) {
   eslint = require(eslintPath);
