@@ -13,18 +13,7 @@ if (nodeModulesPath) {
   module.paths.push(nodeModulesPath);
 }
 var configFile = args[2];
-var nodeVersion = (process.version+"").replace(/v/gi, "").split(".");
-var isNodeMinVersion = false;
-
-if(nodeVersion.length===3){
-  minNodeVersion.every(function(itm, idx){
-    var isGreater = (nodeVersion[idx]*1 > itm*1)?true:false;
-    var isEqual = (itm*1 == nodeVersion[idx]*1)?true:false;
-
-    isNodeMinVersion = (isGreater || isEqual);
-    return (!isGreater && isEqual);
-  });
-}
+var isNodeMinVersion = checkNodeMinVersion(process.version);
 
 var eslintPath = (isNodeMinVersion)
   ? require.resolve('eslint', {paths: [targetDir]})
@@ -97,4 +86,21 @@ function format(results) {
 
   lines.push('');
   return lines.join('\n');
+}
+
+
+function checkNodeMinVersion(version) {
+  var isNodeMinVersion = false;
+  var nodeVersion = (version + "").replace(/v/gi, "").split(".");
+
+  if(nodeVersion.length===3){
+    minNodeVersion.every(function(itm, idx) {
+      var isGreater = (nodeVersion[idx]*1 > itm*1)?true:false;
+      var isEqual = (itm*1 == nodeVersion[idx]*1)?true:false;
+
+      isNodeMinVersion = (isGreater || isEqual);
+      return (!isGreater && isEqual);
+    });
+  }
+  return isNodeMinVersion;
 }
