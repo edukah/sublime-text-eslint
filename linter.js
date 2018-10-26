@@ -16,7 +16,7 @@ var configFile = args[2];
 var isNodeMinVersion = checkNodeMinVersion(process.version);
 
 var eslintPath = (isNodeMinVersion)
-  ? require.resolve('eslint', {paths: [targetDir]})
+  ? require.resolve('eslint', {paths: [targetDir, nodeModulesPath]})
   : require.resolve('eslint');
 
 var eslint = require(eslintPath);
