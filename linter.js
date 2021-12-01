@@ -20,18 +20,29 @@ var eslintPath = (isNodeMinVersion)
   : require.resolve('eslint');
 
 var eslint = require(eslintPath);
-var CLIEngine = eslint.CLIEngine;
 
+var cli;
 var options = {};
-if (configFile) {
-  options.configFile = configFile;
+
+if (eslint.ESLint) {
+  // eslint version >= 7
+  if (configFile) {
+    options.overrideConfigFile = configFile;
+  }
+  cli = new eslint.ESLint(options);
+  cli.lintFiles([targetPath]).then(function(results) {
+    // eslint-disable-next-line no-console
+    console.log(format(results))
+  });
+} else {
+  if (configFile) {
+    options.configFile = configFile;
+  }
+  cli = new eslint.CLIEngine(options);
+  var report = cli.executeOnFiles([targetPath]);
+  // eslint-disable-next-line no-console
+  console.log(format(report.results));
 }
-var cli = new CLIEngine(options);
-
-var report = cli.executeOnFiles([targetPath]);
-// eslint-disable-next-line no-console
-console.log(format(report.results));
-
 
 function format(results) {
   var lines = [];
