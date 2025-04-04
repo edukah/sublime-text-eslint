@@ -14,47 +14,55 @@ class Preferences:
         self.config_file = self.expand_path_variables(settings.get('config_file', DEFAULT_CONFIGFILE))
 
     def expand_path_variables(self, path):
-        """Expand Sublime Text variables in paths ($project_path, $file, etc.)"""
+        """Expand Sublime Text and environment variables in the given path."""
         if not path:
-            return path
+            return ''
 
         window = sublime.active_window()
         if not window:
-            return path
+            return ''
 
         try:
-            # Get standard variables
+            # Standard Sublime variables
             variables = window.extract_variables()
 
-            # Add common Sublime paths
+            # Common Sublime-specific paths
             variables.update({
                 'packages': sublime.packages_path(),
                 'installed_packages': sublime.installed_packages_path(),
                 'platform': sublime.platform()
             })
 
-            # Handle environment variables if present
-            if '${env:' in path:
-                for key, value in os.environ.items():
-                    variables['env:' + key] = value
+            # Add environment variables if needed
+            if '${env:' in path or '$env:' in path:
+                variables.update({'env:' + k: v for k, v in os.environ.items()})
 
-            # Perform the expansion
+            # Expand variables
             expanded = sublime.expand_variables(path, variables)
-        
-            # Normalize path separators and expand user home
-            return os.path.normpath(os.path.expanduser(expanded))
-            
-        except Exception as e:
-            # Fail silently by returning original path
-            return path
+
+            # Normalize the final path
+            normalized = os.path.normpath(os.path.expanduser(expanded))
+
+            # Check if the resulting path exists
+            if not os.path.exists(normalized):
+                print("[ExpandPath] File or directory not found: {}".format(normalized))
+                return ''
+
+            return normalized
+
+        except Exception:
+            print("[ExpandPath] An error occurred: {}".format(e))
+            return ''
 
 Pref = Preferences()
 
 def plugin_loaded():
-    settings = sublime.load_settings(SETTINGS_KEY)
-    Pref.load(settings)
-    settings.add_on_change('reload', lambda: Pref.load(settings))
+    def init():
+        settings = sublime.load_settings(SETTINGS_KEY)
+        Pref.load(settings)
+        settings.add_on_change('reload', lambda: Pref.load(settings))
 
+    sublime.set_timeout(init, 0)  # UI tamamen hazır olana kadar bekle
 
 class EslintExecCommand(sublime_plugin.WindowCommand):
     def run(self, files=[]):
