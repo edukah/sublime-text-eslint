@@ -45,13 +45,13 @@ class Preferences:
 
             # Check if the resulting path exists
             if not os.path.exists(normalized):
-                print("[ExpandPath] File or directory not found: {}".format(normalized))
+                print("[ESLint] File or directory not found: {}".format(normalized))
                 return ''
 
             return normalized
 
         except Exception:
-            print("[ExpandPath] An error occurred: {}".format(e))
+            print("[ESLint] An error occurred: {}".format(e))
             return ''
 
 Pref = Preferences()
